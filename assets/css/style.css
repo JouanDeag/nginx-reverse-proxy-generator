@@ -1,0 +1,119 @@
+html {
+    font-family: roboto;
+    background: url("https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 3000px;
+    color: white;
+}
+
+li{
+    margin: 10px 0;
+}
+
+ol {
+    list-style-type: square;
+}
+
+body {
+    overflow: hidden; /* Hide scrollbars */
+}
+
+input.list-input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+
+/* Classes */
+
+.s-title { 
+    text-align: center;
+}
+
+.c-div {
+    margin: auto;
+    width: 50%;
+}
+
+.endpoint-list {
+    margin: auto;
+    width: 50%;
+    padding: 25;
+    border: 3px solid cyan;
+}
+
+.del-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #b32929;
+    border: none;
+    border-radius: 15px;
+}
+
+.del-btn:hover {
+    background-color: #8b0c0c
+}
+
+.del-btn:active {
+    background-color: #b32929;
+    transform: translateY(4px);
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+}
+
+.btn:hover {
+    background-color: #3e8e41
+}
+
+.btn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.gen-div {
+    text-align: center;
+    padding: 15px
+}
+
+code {
+    color: black;
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    font-family: Consolas,"courier new";
+}
+
+/* IDs */
+
+#footer {
+    text-align: center;
+    height: 50px; /* the footer's total height */
+}
+
+#footer-content {
+    height: 32px; /* height + top/bottom paddding + top/bottom border must add up to footer height */
+    padding: 18px;
+}

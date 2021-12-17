@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- Custom JavaScript -->
+    <!-- <script src="./assets/js/index.js"></script> -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+
+    <title>Johans Dev - NGINX Reverse Proxy Generator</title>
+</head>
+
+<body>
+    <!-- Title -->
+    <h1 class="s-title">NGINX Reverse Proxy Generator</h1>
+
+    <!-- Endpoint Input -->
+
+    <div class="c-div">
+        <input type="text" placeholder="Input Endpoint IP" class="IP list-input">
+        <input type="number" placeholder="Input Endpoint Port" class="PORT list-input">
+        <input type="button" value="Submit" class="addBtn list-input">
+        <input type="button" value="Clear List" class="clearBtn list-input">
+    </div>
+    
+    <div class="endpoint-list margin-10">
+        <ol class="list"></ol>
+    </div>
+    
+    <script>
+        const list = document.querySelector('.list');
+        const addBtn = document.querySelector(".addBtn");
+        const clearBtn = document.querySelector('.clearBtn');
+        const ipInput = document.querySelector('.IP');
+        const portInput = document.querySelector('.PORT');
+
+        function deleteNote(e) {
+        const parent = e.target.parentNode;
+        parent.remove();
+        }
+
+        function addStuff() {
+        
+        const port = portInput.value;
+        const note = ipInput.value;
+        
+        if(note.length == 0) return;
+            
+        const btn = document.createElement('button');
+        btn.classList.add('del-btn');
+        btn.type = 'button';
+        btn.textContent = 'Delete';
+        btn.addEventListener("click", (e) => deleteNote(e));
+        
+        const li = document.createElement('li');
+        li.textContent = `${note}:${port} `;
+        li.appendChild(btn);
+        
+        list.appendChild(li);
+        
+        ipInput.value = "";
+        }
+
+        function clearNotes() {
+        list.innerHTML  = ''
+        }
+
+        addBtn.addEventListener("click", addStuff);
+        clearBtn.addEventListener("click", clearNotes);       
+    </script>
+
+    <div class="c-div gen-div">
+        <input type="button" value="Generate Config" class="btn gen-btn">
+    </div>
+
+    <div class="c-div">
+        <code>
+            server {
+                asd
+            }
+        </code>
+    </div>
+
+    <footer id="footer" class="c-div">
+        <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator">Copyright &copy; Johan Karlsson</a></div>
+    </footer>
+
+</body>
+
+</html>
