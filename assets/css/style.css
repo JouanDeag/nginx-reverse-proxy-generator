@@ -1,6 +1,6 @@
 html {
     font-family: roboto;
-    background: url("https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80");
+    background: url(../img/background.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     height: 3000px;
@@ -26,6 +26,14 @@ input.list-input {
     box-sizing: border-box;
 }
 
+code {
+    color: black;
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    font-family: Consolas,"courier new";
+}
 
 /* Classes */
 
@@ -88,7 +96,6 @@ input.list-input {
 
 .btn:active {
     background-color: #3e8e41;
-    box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
 
@@ -97,13 +104,13 @@ input.list-input {
     padding: 15px
 }
 
-code {
+.no-highlight {
+    color: white;
+    text-decoration: none;
+}
+
+.no-highlight:hover {
     color: black;
-    background-color: #eee;
-    border: 1px solid #999;
-    display: block;
-    padding: 20px;
-    font-family: Consolas,"courier new";
 }
 
 /* IDs */

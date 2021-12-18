@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 
     <!-- Custom JavaScript -->
-    <!-- <script src="./assets/js/index.js"></script> -->
+    <script src="./assets/js/index.js"></script>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
         <input type="text" placeholder="Input Endpoint IP" class="IP list-input">
         <input type="number" placeholder="Input Endpoint Port" class="PORT list-input">
         <input type="button" value="Submit" class="addBtn list-input">
-        <input type="button" value="Clear List" class="clearBtn list-input">
+        <input type="button" value="Clear Endpoints" class="clearBtn list-input">
     </div>
     
     <div class="endpoint-list margin-10">
@@ -68,31 +68,38 @@
         
         list.appendChild(li);
         
+        portInput.value = "";
+        }
+
+        function clearEndpoints() {
+        list.innerHTML  = ''
+        portInput.value = "";
         ipInput.value = "";
         }
 
-        function clearNotes() {
-        list.innerHTML  = ''
-        }
-
         addBtn.addEventListener("click", addStuff);
-        clearBtn.addEventListener("click", clearNotes);       
+        clearBtn.addEventListener("click", clearEndpoints);       
     </script>
 
     <div class="c-div gen-div">
         <input type="button" value="Generate Config" class="btn gen-btn">
     </div>
 
-    <div class="c-div">
-        <code>
-            server {
-                asd
-            }
-        </code>
+<pre class="c-div">
+    <code class="finalconfig">
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+load_module /usr/lib/nginx/modules/ngx_stream_module.so;
+    </code>
+</pre>
+
+    <div class="c-div gen-div">
+        <button onClick="clipboard()" class="btn">Copy Configuration</button>
     </div>
 
     <footer id="footer" class="c-div">
-        <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator">Copyright &copy; Johan Karlsson</a></div>
+        <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator" target="_blank" class="no-highlight">Copyright &copy; 2021 Johan Karlsson</a></div>
     </footer>
 
 </body>
