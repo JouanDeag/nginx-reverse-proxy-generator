@@ -9,9 +9,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css">
 
-    <!-- Custom JavaScript -->
-    <script src="./assets/js/index.js"></script>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,57 +26,7 @@
     <div class="c-div">
         <input type="text" placeholder="Input Endpoint IP" class="IP list-input">
         <input type="number" placeholder="Input Endpoint Port" class="PORT list-input">
-        <!-- <input type="button" value="Submit" class="addBtn list-input">
-        <input type="button" value="Clear Endpoints" class="clearBtn list-input"> -->
     </div>
-    
-    <!-- <div class="endpoint-list margin-10">
-        <ol class="list"></ol>
-    </div>
-    
-    <script>
-        let list = document.querySelector('.list');
-        const addBtn = document.querySelector(".addBtn");
-        const clearBtn = document.querySelector('.clearBtn');
-        let ipInput = document.querySelector('.IP');
-        let portInput = document.querySelector('.PORT');
-
-        function deleteNote(e) {
-        const parent = e.target.parentNode;
-        parent.remove();
-        }
-
-        function addStuff() {
-        
-        const port = portInput.value;
-        const note = ipInput.value;
-        
-        if(note.length == 0) return;
-            
-        const btn = document.createElement('button');
-        btn.classList.add('del-btn');
-        btn.type = 'button';
-        btn.textContent = 'Delete';
-        btn.addEventListener("click", (e) => deleteNote(e));
-        
-        const li = document.createElement('li');
-        li.textContent = `${note}:${port} `;
-        li.appendChild(btn);
-        
-        list.appendChild(li);
-        
-        portInput.value = "";
-        }
-
-        function clearEndpoints() {
-        list.innerHTML  = ''
-        portInput.value = "";
-        ipInput.value = "";
-        }
-
-        addBtn.addEventListener("click", addStuff);
-        clearBtn.addEventListener("click", clearEndpoints);       
-    </script> -->
 
     <div class="c-div gen-div">
         <input type="button" onClick="generate(list)" value="Add to Config" class="gen-btn btn">
@@ -88,11 +35,8 @@
 <script>
     let portInput = document.querySelector('.PORT');
     portInput.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
         if (event.keyCode === 13) {
-          // Cancel the default action, if needed
           event.preventDefault();
-          // Trigger the button element with a click
           document.querySelector(".gen-btn").click();
         }
     });
