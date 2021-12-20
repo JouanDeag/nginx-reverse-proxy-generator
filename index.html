@@ -29,20 +29,20 @@
     <div class="c-div">
         <input type="text" placeholder="Input Endpoint IP" class="IP list-input">
         <input type="number" placeholder="Input Endpoint Port" class="PORT list-input">
-        <input type="button" value="Submit" class="addBtn list-input">
-        <input type="button" value="Clear Endpoints" class="clearBtn list-input">
+        <!-- <input type="button" value="Submit" class="addBtn list-input">
+        <input type="button" value="Clear Endpoints" class="clearBtn list-input"> -->
     </div>
     
-    <div class="endpoint-list margin-10">
+    <!-- <div class="endpoint-list margin-10">
         <ol class="list"></ol>
     </div>
     
     <script>
-        const list = document.querySelector('.list');
+        let list = document.querySelector('.list');
         const addBtn = document.querySelector(".addBtn");
         const clearBtn = document.querySelector('.clearBtn');
-        const ipInput = document.querySelector('.IP');
-        const portInput = document.querySelector('.PORT');
+        let ipInput = document.querySelector('.IP');
+        let portInput = document.querySelector('.PORT');
 
         function deleteNote(e) {
         const parent = e.target.parentNode;
@@ -79,10 +79,10 @@
 
         addBtn.addEventListener("click", addStuff);
         clearBtn.addEventListener("click", clearEndpoints);       
-    </script>
+    </script> -->
 
     <div class="c-div gen-div">
-        <input type="button" value="Generate Config" class="btn gen-btn">
+        <input type="button" onClick="generate(list)" value="Generate Config" class="gen-btn btn">
     </div>
 
 <pre class="c-div">
@@ -91,17 +91,83 @@ user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 load_module /usr/lib/nginx/modules/ngx_stream_module.so;
+
+events {
+    worker_connections 768;
+}
+
+stream {
     </code>
-</pre>
 
     <div class="c-div gen-div">
-        <button onClick="clipboard()" class="btn">Copy Configuration</button>
+        <button onClick="clipboard(output)" class="btn">Copy Configuration</button>
     </div>
+
+    <script>
+        let list = document.querySelector('.list');
+        let ipInput = document.querySelector('.IP');
+        let portInput = document.querySelector('.PORT');
+        const genbtn = document.querySelector(".gen-btn");
+        let output = document.querySelector(".finalconfig")
+
+        function generate (list) {
+            if (ipInput.value == "" || portInput.value == "") return;
+            console.log(output.append(`
+    upstream ${portInput.value} {
+        server ${ipInput.value}:${portInput.value};
+    }
+
+    server {
+        listen ${portInput.value};
+        proxy_pass ${portInput.value};
+    }
+
+    server {
+        listen ${portInput.value} udp reuseport;
+        proxy_pass ${portInput.value};
+    }
+`));
+
+            output.innerHTML += "}"
+        }
+
+        function clipboard(output) {
+            navigator.clipboard.writeText(output.innerHTML);
+        }
+    </script>
+
 
     <footer id="footer" class="c-div">
         <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator" target="_blank" class="no-highlight">Copyright &copy; 2021 Johan Karlsson</a></div>
     </footer>
 
-</body>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</body>
 </html>
