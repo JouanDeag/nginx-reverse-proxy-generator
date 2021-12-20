@@ -82,12 +82,24 @@
     </script> -->
 
     <div class="c-div gen-div">
-        <input type="button" onClick="generate(list)" value="Generate Config" class="gen-btn btn">
+        <input type="button" onClick="generate(list)" value="Add to Config" class="gen-btn btn">
     </div>
 
+<script>
+    let portInput = document.querySelector('.PORT');
+    portInput.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.querySelector(".gen-btn").click();
+        }
+    });
+</script>
+
 <pre class="c-div">
-    <code class="finalconfig">
-user www-data;
+    <code class="finalconfig">user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 load_module /usr/lib/nginx/modules/ngx_stream_module.so;
@@ -98,15 +110,16 @@ events {
 
 stream {
     </code>
-
+</pre>
     <div class="c-div gen-div">
-        <button onClick="clipboard(output)" class="btn">Copy Configuration</button>
+        <button onClick="clipboard(output)" class="btn">Copy Config</button>
     </div>
 
+<pre>
     <script>
         let list = document.querySelector('.list');
         let ipInput = document.querySelector('.IP');
-        let portInput = document.querySelector('.PORT');
+        portInput = document.querySelector('.PORT');
         const genbtn = document.querySelector(".gen-btn");
         let output = document.querySelector(".finalconfig")
 
@@ -129,6 +142,7 @@ stream {
 `));
 
             output.innerHTML += "}"
+            portInput.value = ""
         }
 
         function clipboard(output) {
@@ -140,6 +154,13 @@ stream {
     <footer id="footer" class="c-div">
         <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator" target="_blank" class="no-highlight">Copyright &copy; 2021 Johan Karlsson</a></div>
     </footer>
+
+
+
+
+
+
+
 
 
 
