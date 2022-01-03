@@ -87,7 +87,6 @@ server {
 
             output.innerHTML += "}";
             portInput.value = "";
-            const possibleWords = ["listen", "server", "upstream", "proxy_pass", "stream", "events", "worker_connections", "load_module", "pid", "worker_processes", "user", "www-data;", "auto;", "/run/nginx.pid;", "/usr/lib/nginx/modules/ngx_stream_module.so;", "worker_connections 768;", "worker_connections768;"];
             output = document.querySelector(".finalconfig");
 
             let replacement = output.innerText.replace(/\n/g, "").replace(/ /g, "");
