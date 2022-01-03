@@ -65,35 +65,54 @@ stream {
         let ipInput = document.querySelector('.IP');
         portInput = document.querySelector('.PORT');
         const genbtn = document.querySelector(".gen-btn");
-        let output = document.querySelector(".finalconfig")
+        let output = document.querySelector(".finalconfig");
 
         function generate (list) {
             if (ipInput.value == "" || portInput.value == "") return;
             console.log(output.append(`
-    upstream ${portInput.value} {
-        server ${ipInput.value}:${portInput.value};
-    }
+upstream ${portInput.value} {
+    server ${ipInput.value}:${portInput.value};
+}
 
-    server {
-        listen ${portInput.value};
-        proxy_pass ${portInput.value};
-    }
+server {
+    listen ${portInput.value};
+    proxy_pass ${portInput.value};
+}
 
-    server {
-        listen ${portInput.value} udp reuseport;
-        proxy_pass ${portInput.value};
-    }
+server {
+    listen ${portInput.value} udp reuseport;
+    proxy_pass ${portInput.value};
+}
 `));
 
-            output.innerHTML += "}"
-            portInput.value = ""
+            output.innerHTML += "}";
+            portInput.value = "";
+            const possibleWords = ["listen", "server", "upstream", "proxy_pass", "stream", "events", "worker_connections", "load_module", "pid", "worker_processes", "user", "www-data;", "auto;", "/run/nginx.pid;", "/usr/lib/nginx/modules/ngx_stream_module.so;", "worker_connections 768;", "worker_connections768;"];
+            output = document.querySelector(".finalconfig");
+
+            let replacement = output.innerText.replace(/\n/g, "").replace(/ /g, "");
+            if (replacement.includes("}}u") == true) {
+                output.innerText = output.innerText.replace(/ /g, "").replace(/;\n}\n}/g, ";\n}\n");
+                output.innerText = output.innerText.replace(/{/g, " {");
+                output.innerText = output.innerText.replace(/listen/g, "    listen ");
+                output.innerText = output.innerText.replace(/server/g, "server ");
+                output.innerText = output.innerText.replace(/proxy_pass/g, "    proxy_pass ");
+                output.innerText = output.innerText.replace(/udpreuseport/g, " udp reuseport");
+                output.innerText = output.innerText.replace(/upstream/g, "upstream ");
+                output.innerText = output.innerText.replace(/userwww-data;/g, "user www-data;");
+                output.innerText = output.innerText.replace(/worker_processesauto;/g, "worker_processes auto;");
+                output.innerText = output.innerText.replace(/pid/, "pid ");
+                output.innerText = output.innerText.replace(/load_module/g, "load_module ");
+                output.innerText = output.innerText.replace(/worker_connections/g, "    worker_connections ");
+                output.innerText = output.innerText.replace(/{\nserver/g, "{\n    server");
+            }
         }
 
         function clipboard(output) {
-            navigator.clipboard.writeText(output.innerHTML);
+            output.innerText += "\n}";
+            navigator.clipboard.writeText(output.innerText);
         }
     </script>
-
 
     <footer id="footer" class="c-div">
         <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator" target="_blank" class="no-highlight">Copyright &copy; 2021 Johan Karlsson</a></div>
