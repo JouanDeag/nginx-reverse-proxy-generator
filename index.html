@@ -29,7 +29,7 @@
     </div>
 
     <div class="c-div gen-div">
-        <input type="button" onClick="generate(list)" value="Add to Config" class="gen-btn btn">
+        <input type="button" onClick="addToConfig()" value="Add to Config" class="gen-btn btn">
     </div>
 
 <script>
@@ -43,7 +43,33 @@
 </script>
 
 <pre class="c-div">
-    <code class="finalconfig">user www-data;
+    <code class="finalconfig"></code>
+</pre>
+    <div class="c-div gen-div">
+        <button onClick="clipboard(output)" class="btn">Copy Config</button>
+    </div>
+
+<pre>
+    <script>
+        let inputs = [];
+        let ipInput = document.querySelector('.IP');
+        portInput = document.querySelector('.PORT');
+        const genbtn = document.querySelector(".gen-btn");
+        let output = document.querySelector(".finalconfig");
+
+        function addToConfig () {
+            if (ipInput.value == "" || portInput.value == "") return;
+            inputs.push([ipInput.value, portInput.value]);
+            generate();
+        }
+
+        function clipboard(output) {
+            output.innerText += "\n}";
+            navigator.clipboard.writeText(output.innerText);
+        }
+
+        function generate() {
+            output.innerText = `user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 load_module /usr/lib/nginx/modules/ngx_stream_module.so;
@@ -52,105 +78,35 @@ events {
     worker_connections 768;
 }
 
-stream {
-    </code>
-</pre>
-    <div class="c-div gen-div">
-        <button onClick="clipboard(output)" class="btn">Copy Config</button>
-    </div>
+stream {`;
 
-<pre>
-    <script>
-        let list = document.querySelector('.list');
-        let ipInput = document.querySelector('.IP');
-        portInput = document.querySelector('.PORT');
-        const genbtn = document.querySelector(".gen-btn");
-        let output = document.querySelector(".finalconfig");
+            for (i = 0; i < inputs.length; i++) {
+                output.innerText += `
+    upstream ${inputs[i][1]} {
+        server ${inputs[i][0]}:${inputs[i][1]};
+    }
 
-        function generate (list) {
-            if (ipInput.value == "" || portInput.value == "") return;
-            console.log(output.append(`
-upstream ${portInput.value} {
-    server ${ipInput.value}:${portInput.value};
-}
+    server {
+        listen ${inputs[i][1]};
+        proxy_pass ${inputs[i][1]};
+    }
 
-server {
-    listen ${portInput.value};
-    proxy_pass ${portInput.value};
-}
-
-server {
-    listen ${portInput.value} udp reuseport;
-    proxy_pass ${portInput.value};
-}
-`));
-
-            output.innerHTML += "}";
+    server {
+        listen ${inputs[i][1]} udp reuseport;
+        proxy_pass ${inputs[i][1]};
+    }
+`;
+            };
             portInput.value = "";
-            output = document.querySelector(".finalconfig");
-
-            let replacement = output.innerText.replace(/\n/g, "").replace(/ /g, "");
-            if (replacement.includes("}}u") == true) {
-                output.innerText = output.innerText.replace(/ /g, "").replace(/;\n}\n}/g, ";\n}\n");
-                output.innerText = output.innerText.replace(/{/g, " {");
-                output.innerText = output.innerText.replace(/listen/g, "    listen ");
-                output.innerText = output.innerText.replace(/server/g, "server ");
-                output.innerText = output.innerText.replace(/proxy_pass/g, "    proxy_pass ");
-                output.innerText = output.innerText.replace(/udpreuseport/g, " udp reuseport");
-                output.innerText = output.innerText.replace(/upstream/g, "upstream ");
-                output.innerText = output.innerText.replace(/userwww-data;/g, "user www-data;");
-                output.innerText = output.innerText.replace(/worker_processesauto;/g, "worker_processes auto;");
-                output.innerText = output.innerText.replace(/pid/, "pid ");
-                output.innerText = output.innerText.replace(/load_module/g, "load_module ");
-                output.innerText = output.innerText.replace(/worker_connections/g, "    worker_connections ");
-                output.innerText = output.innerText.replace(/{\nserver/g, "{\n    server");
-            }
+            output.innerText += "}";
         }
 
-        function clipboard(output) {
-            output.innerText += "\n}";
-            navigator.clipboard.writeText(output.innerText);
-        }
+
     </script>
 
     <footer id="footer" class="c-div">
         <div id="footer-content"><a href="https://github.com/JouanDeag/nginx-reverse-proxy-generator" target="_blank" class="no-highlight">Copyright &copy; 2021 Johan Karlsson</a></div>
     </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </pre>
 </body>
 </html>
